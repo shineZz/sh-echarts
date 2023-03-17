@@ -6,73 +6,61 @@
   </view>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import ECanvas from '@/components/ec-canvas/index.vue';
-import * as echarts from '@/components/ec-canvas/echarts';
+import { onMounted, ref, defineProps, defineExpose } from 'vue'
+import ECanvas from '@/components/ec-canvas/index.vue'
+import * as echarts from '@/components/ec-canvas/echarts'
+interface Ititle {
+  text?: string
+  subtext?: string
+  left?: 'center' | 'left' | 'right'
+}
+interface Itooltip {
+  trigger?: string
+  formatter?: string
+  axisPointer?: {
+    type: 'shadow'
+  }
+}
+interface Ilegend {
+  orient?: string
+  left?: 'center' | 'left' | 'right'
+  data: any[]
+}
 
-let chart;
-
-const ecCanvasRef = ref();
+interface Ioptions {
+  title: Ititle
+  tooltip?: Itooltip
+  legend: Ilegend
+  series: any[]
+  xAxis?: any[]
+  yAxis?: any[]
+  toolbox?: any
+}
+let chart
+const props = defineProps<{ options: Ioptions }>()
+const ecCanvasRef = ref()
 
 const initChart = (canvas, width, height, dpr) => {
   chart = echarts.init(canvas, null, {
     width,
     height,
     devicePixelRatio: dpr,
-  });
-  canvas.setChart(chart);
-  refresh();
-  return chart;
+  })
+  canvas.setChart(chart)
+  refresh()
+  return chart
 }
 
 const ec: {
-  lazyLoad?: boolean,
-  onInit: (canvas, width, height, dpr) => void,
+  lazyLoad?: boolean
+  onInit: (canvas, width, height, dpr) => void
 } = {
   // lazyLoad: true,
   onInit: initChart,
 }
 
 const refresh = () => {
-  const option = {
-    title: {
-      text: "某站点用户访问来源",
-      subtext: "纯属虚构",
-      left: "center",
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: "{a} \n{b} : {c} ({d}%)",
-    },
-    legend: {
-      orient: "vertical",
-      left: "left",
-      data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
-    },
-    series: [
-      {
-        name: "访问来源",
-        type: "pie",
-        radius: "55%",
-        center: ["50%", "60%"],
-        data: [
-          { value: 335, name: "直接访问" },
-          { value: 310, name: "邮件营销" },
-          { value: 234, name: "联盟广告" },
-          { value: 135, name: "视频广告" },
-          { value: 1548, name: "搜索引擎" },
-        ],
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-          },
-        },
-      },
-    ],
-  };
-  chart?.setOption(option);
+  chart?.setOption(props.option)
 }
 
 const init = () => {
@@ -81,17 +69,26 @@ const init = () => {
       width,
       height,
       devicePixelRatio: dpr,
-    });
-    canvas.setChart(chart);
-    refresh();
-    return chart;
+    })
+    canvas.setChart(chart)
+    refresh()
+    return chart
   })
 }
-
+function setOption(data) {
+  if (!chart)
+    return console.error('echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法')
+  chart.setOption(data)
+}
 onMounted(() => {
   setTimeout(() => {
-    ec.lazyLoad && init();
-  }, 300);
+    ec.lazyLoad && init()
+  }, 300)
+})
+// 对外暴露属性
+defineExpose({
+  setOption,
+  refresh,
 })
 </script>
 <style lang="less">
