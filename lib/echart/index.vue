@@ -4,16 +4,16 @@
 </template>
 
 <script setup>
-import "./polyfill";
-import { reactive, ref } from "vue-demi";
-import Taro from "@tarojs/taro";
-import * as echarts from "../ec-canvas/echarts";
-import EcCanvas from "../ec-canvas/index";
+import './polyfill'
+import { reactive, ref } from 'vue-demi'
+import Taro from '@tarojs/taro'
+import * as echarts from '../ec-canvas/echarts'
+import EcCanvas from '../ec-canvas/index.vue'
 
-const isWeb = ref(process.env.TARO_ENV === "h5"); // 平台类型
-const uid = ref(`canvas-${Date.now()}-${Math.floor(Math.random() * 10000)}`); // 唯一编号
-const canvas = ref(null); // 当前组件实例
-let chartInstance = null; // chart 实例
+const isWeb = ref(process.env.TARO_ENV === 'h5') // 平台类型
+const uid = ref(`canvas-${Date.now()}-${Math.floor(Math.random() * 10000)}`) // 唯一编号
+const canvas = ref(null) // 当前组件实例
+let chartInstance = null // chart 实例
 
 /**
  * 获取 chart 实例
@@ -21,30 +21,30 @@ let chartInstance = null; // chart 实例
 function getChart() {
   if (!chartInstance)
     return console.error(
-      "echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法"
-    );
-  return chartInstance;
+      'echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法'
+    )
+  return chartInstance
 }
 
 /** 更新图表数据 */
 function setOption(data) {
   if (!chartInstance)
     return console.error(
-      "echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法"
-    );
-  chartInstance.setOption(data);
+      'echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法'
+    )
+  chartInstance.setOption(data)
 }
 
 /** 改变图表尺寸 */
 function resize(options) {
   if (!chartInstance)
     return console.error(
-      "echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法"
-    );
+      'echart 实例化还未完成，可参考使用说明：https://github.com/beezen/echarts4taro3#基础用法'
+    )
   chartInstance.resize({
     width: options.width,
-    height: options.height
-  });
+    height: options.height,
+  })
 }
 
 /**
@@ -54,57 +54,57 @@ function resize(options) {
  * @param callback 回调函数，返回 echart 实例
  */
 function refresh(data, callback) {
-  return new Promise(resolve => {
-    if (process.env.TARO_ENV === "h5") {
+  return new Promise((resolve) => {
+    if (process.env.TARO_ENV === 'h5') {
       // h5 模式
-      const canvasDom = document.querySelector(`#${uid.value}`);
-      chartInstance = echarts.init(canvasDom);
-      chartInstance.setOption(data);
-      resolve(chartInstance);
+      const canvasDom = document.querySelector(`#${uid.value}`)
+      chartInstance = echarts.init(canvasDom)
+      chartInstance.setOption(data)
+      resolve(chartInstance)
     } else {
       // 小程序模式
-      const canvasInstance = canvas.value;
+      const canvasInstance = canvas.value
       canvasInstance.init((canvas, width, height, canvasDpr) => {
         chartInstance = echarts.init(canvas, null, {
           width: width,
           height: height,
-          devicePixelRatio: canvasDpr
-        });
-        canvas.setChart(chartInstance);
+          devicePixelRatio: canvasDpr,
+        })
+        canvas.setChart(chartInstance)
         // 优化图表尺寸未获取到的极端情况
         if (!width || !height) {
-          let count = 0;
+          let count = 0
           const doFn = () => {
-            count++;
+            count++
             Taro.createSelectorQuery()
               .select(`.${uid.value}`)
               .fields({
                 node: true,
-                size: true
+                size: true,
               })
-              .exec(res => {
-                const canvasWidth = res[0].width;
-                const canvasHeight = res[0].height;
+              .exec((res) => {
+                const canvasWidth = res[0].width
+                const canvasHeight = res[0].height
                 if ((!canvasWidth || !canvasHeight) && count < 20) {
-                  setTimeout(doFn, 100);
+                  setTimeout(doFn, 100)
                 } else {
                   chartInstance.resize({
                     width: canvasWidth,
-                    height: canvasHeight
-                  });
-                  chartInstance.setOption(data);
+                    height: canvasHeight,
+                  })
+                  chartInstance.setOption(data)
                 }
-              });
-          };
-          doFn();
+              })
+          }
+          doFn()
         } else {
-          chartInstance.setOption(data);
+          chartInstance.setOption(data)
         }
-        resolve(chartInstance);
-        return chartInstance;
-      });
+        resolve(chartInstance)
+        return chartInstance
+      })
     }
-  });
+  })
 }
 
 // 对外暴露属性
@@ -112,8 +112,8 @@ defineExpose({
   getChart,
   setOption,
   resize,
-  refresh
-});
+  refresh,
+})
 </script>
 
 <style>
