@@ -26,8 +26,6 @@
   "author": "shineZz",
   "license": "MIT",
   "dependencies": {
-    "@vitejs/plugin-vue": "^4.1.0",
-    "vite": "^4.2.1",
     "vue-demi": "^0.13.11"
   },
   "peerDependencies": {
@@ -41,6 +39,8 @@
     }
   },
   "devDependencies": {
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "vite": "^4.2.1"
   }
 }
