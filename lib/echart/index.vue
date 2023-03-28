@@ -7,9 +7,9 @@
 import './polyfill'
 import { reactive, ref } from 'vue-demi'
 import Taro from '@tarojs/taro'
-import * as echarts from '../ec-canvas/echarts'
-import EcCanvas from '../ec-canvas/index.vue'
 
+import EcCanvas from '../ec-canvas/index.vue'
+const echarts = require('./echarts.js')
 const isWeb = ref(process.env.TARO_ENV === 'h5') // 平台类型
 const uid = ref(`canvas-${Date.now()}-${Math.floor(Math.random() * 10000)}`) // 唯一编号
 const canvas = ref(null) // 当前组件实例
