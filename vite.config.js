@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [vue(), commonjs()],
   build: {
     //打包后文件目录
-    outDir: 'es',
+    // outDir: 'es',
     //压缩
     minify: true,
     // commonjsOptions: { transformMixedEsModules: true },
@@ -22,12 +22,12 @@ export default defineConfig({
       external: ['@tarojs/taro', 'vue'],
       output: {
         //打包格式
-        format: 'es',
-        // // //打包后文件名
-        entryFileNames: '[name].js',
+        // format: 'es',
+        // // // //打包后文件名
+        // entryFileNames: '[name].js',
         // // //让打包目录和我们目录对应
         // preserveModules: true,
-        // exports: 'named',
+        exports: 'named',
         //配置打包根目录
         dir: resolve(__dirname, 'pck'),
         globals: {
