@@ -7,7 +7,7 @@
 import './polyfill'
 import { reactive, ref } from 'vue-demi'
 import Taro from '@tarojs/taro'
-import * as echarts from '../ec-canvas/echarts'
+import * as echarts from '@echarts'
 import EcCanvas from '../ec-canvas/index.vue'
 // const echarts = require('../ec-canvas/echarts.js')
 const isWeb = ref(process.env.TARO_ENV === 'h5') // 平台类型

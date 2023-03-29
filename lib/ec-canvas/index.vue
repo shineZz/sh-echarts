@@ -11,7 +11,7 @@
 <script setup>
 import Taro from '@tarojs/taro'
 import { onMounted } from 'vue-demi'
-import * as echarts from './echarts'
+import * as echarts from '@echarts'
 import WxCanvas from './wx-canvas'
 // const echarts = require('./echarts.js')
 const props = defineProps({
