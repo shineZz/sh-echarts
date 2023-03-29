@@ -27,12 +27,12 @@ export default defineConfig({
       output: [
         {
           //打包格式
-          //   format: 'es',
-          //   //打包后文件名
-          //   entryFileNames: '[name].js',
-          //   //让打包目录和我们目录对应
-          //   preserveModules: true,
-          //   exports: 'named',
+          format: 'es',
+          //打包后文件名
+          entryFileNames: '[name].js',
+          //让打包目录和我们目录对应
+          preserveModules: true,
+          exports: 'named',
           //配置打包根目录
           dir: resolve(__dirname, 'pck'),
           globals: {

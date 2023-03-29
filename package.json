@@ -3,6 +3,7 @@
   "version": "1.0.10",
   "description": "是一个可运行在 Taro3 框架上的 Echarts 跨端组件，满足开发者使用一套 vue 或 vue3 代码，就让图表流畅的展示于 h5 和小程序端",
   "type": "module",
+  "main": "./pck/index.js",
   "scripts": {
     "build": "vite build",
     "pub": "npm publish --access public --no-git-checks ",
@@ -19,12 +20,6 @@
   "files": [
     "pck"
   ],
-  "exports": {
-    ".": {
-      "import": "./pck/index.es.js",
-      "require": "./pck/index.umd.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/shineZz/sh-echarts"
