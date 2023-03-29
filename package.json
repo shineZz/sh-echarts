@@ -1,31 +1,22 @@
 {
-  "name": "yr-echarts",
+  "name": "sh-echarts",
   "version": "1.0.12",
   "description": "是一个可运行在 Taro3 框架上的 Echarts 跨端组件，满足开发者使用一套 vue 或 vue3 代码，就让图表流畅的展示于 h5 和小程序端",
-  "type": "module",
-  "main": "./pck/yr-echarts",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "vite build",
-    "pub": "npm publish --access public --no-git-checks ",
     "release": "standard-version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "keywords": [
-    "yr-echarts",
+    "sh-echarts",
     "echarts",
     "vue3",
     "taro3",
     "taro"
   ],
   "files": [
-    "pck"
+    "lib"
   ],
-  "exports": {
-    ".": {
-      "import": "./pck/yr-echarts.js",
-      "require": "./pck/yr-echarts.umd.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/shineZz/sh-echarts"
@@ -36,9 +27,9 @@
     "vue-demi": "^0.13.11"
   },
   "peerDependencies": {
-    "@tarojs/taro": ">=3.0.0",
     "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0"
+    "vue": "^2.0.0 || >=3.0.0",
+    "@tarojs/taro": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
@@ -46,9 +37,6 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "vite": "^4.2.1",
     "vue": "^3.0.0"
   }
 }

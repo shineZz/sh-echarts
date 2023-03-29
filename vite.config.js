@@ -16,7 +16,7 @@ export default defineConfig({
     // outDir: 'es',
     //压缩
     minify: true,
-    // commonjsOptions: { transformMixedEsModules: true },
+    commonjsOptions: { transformMixedEsModules: true },
     rollupOptions: {
       //忽略打包vue文件
       external: ['@tarojs/taro', 'vue'],
@@ -39,6 +39,7 @@ export default defineConfig({
     lib: {
       entry: './lib/index.js',
       name: 'yr-echarts',
+      fileName: (format) => `index.${format}.js`,
     },
   },
 })
